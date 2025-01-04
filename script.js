@@ -38,7 +38,7 @@ buttons.addEventListener('click', (e) => {
 
         if (operation == 'clear') { 
             resultElem.textContent = 0;
-            operatorSelected != '' ? operatorSelected.style = 'background: white' : null;
+            operatorSelected != '' ? operatorSelected.style = 'background: rgb(110, 215, 110)' : null;
             first = '', operatorSelected = '', last = '';
             result = 0;
         }
@@ -53,13 +53,23 @@ buttons.addEventListener('click', (e) => {
             }
         }
         else if (operation == 'change-signs') {
-            result = (-Number(result)).toString();
-            resultElem.textContent = result;
+            if (first != '' && last == '') {
+                first = (-Number(first).toString());
+                resultElem.textContent = first;
+            }
+            else if (last != '') {
+                last = (-Number(last).toString());
+                resultElem.textContent = last;
+            }
+            else {
+                result = (-Number(result)).toString();
+                resultElem.textContent = result;
+            }  
         }
         else if (operation == '=') {
             result > 0 ? result = operate(Number(result), Number(last), mathOperator) : result += operate(Number(first), Number(last), mathOperator)
             first = '', operatorSeslected = '', last = '';
-            operatorSelected != '' ? operatorSelected.style = 'background: white' : null;
+            operatorSelected != '' ? operatorSelected.style = 'background: rgb(110, 215, 110)' : null;
             operatorSelected = '';
 
             if (isNaN(result)) {
@@ -70,14 +80,14 @@ buttons.addEventListener('click', (e) => {
         }
         else {
             if (operatorSelected != '') {
-                operatorSelected.style = 'background: white';
+                operatorSelected.style = 'background: rgb(110, 215, 110)';
                 result > 0 ? result = operate(Number(result), Number(last), mathOperator) : result += operate(Number(first), Number(last), mathOperator);
                 first = '', operatorSeslected = '', last = '';
                 
                 resultElem.textContent = result;
             }
             operatorSelected = e.target;
-            operatorSelected.style = 'background: gray';
+            operatorSelected.style = 'background: rgb(62, 152, 62)';
         }
     }
 })
