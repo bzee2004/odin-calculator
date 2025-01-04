@@ -14,13 +14,13 @@ const display = document.querySelector('.display');
 display.appendChild(resultElem);
 
 const buttons = document.querySelector('.buttons');
-
 buttons.addEventListener('click', (e) => {
 
     resultElem.textContent == '0' ? resultElem.innerHTML = '' : null;
-
+    
     const className = e.target.classList[0];
-    if (className == 'number') {
+
+    if (className == 'number' || className == 'decimal' && !resultElem.textContent.includes('.')) {
         if (operatorSelected == '') {
             first += e.target.textContent;
             resultElem.textContent = first;
@@ -39,8 +39,18 @@ buttons.addEventListener('click', (e) => {
         if (operation == 'clear') { 
             resultElem.textContent = 0;
             operatorSelected != '' ? operatorSelected.style = 'background: white' : null;
-            first = '', operatorSeslected = '', last = '';
+            first = '', operatorSelected = '', last = '';
             result = 0;
+        }
+        else if (operation == 'backspace') {
+            if (first != '' && last == '') {
+                first = Number(first.toString().slice(0, -1));
+                resultElem.textContent = first;
+            }
+            else {
+                last = Number(last.toString().slice(0, -1));
+                resultElem.textContent = last;
+            }
         }
         else if (operation == 'change-signs') {
             result = (-Number(result)).toString();
@@ -71,6 +81,16 @@ buttons.addEventListener('click', (e) => {
         }
     }
 })
+
+
+const keyPressed = document.querySelector('body');
+keyPressed.addEventListener('keydown', ({key}) => {
+    if (key >= 0 && key < 10 && key != ' ') {
+
+    }
+})
+
+
 
 function operate(num1, num2, op) {
     console.table([num1, num2, op]);
